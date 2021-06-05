@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/itssadon/movie-service/film"
 	"log"
 	"net/http"
 )
@@ -35,6 +36,7 @@ func baseHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc(serviceBasePath, baseHandler)
+	film.SetupRoutes(serviceBasePath)
 
 	log.Fatal(http.ListenAndServe(":5300", nil))
 }
