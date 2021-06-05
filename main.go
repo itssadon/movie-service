@@ -2,9 +2,11 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/itssadon/movie-service/film"
 	"log"
 	"net/http"
+	"os"
+
+	"github.com/itssadon/movie-service/film"
 )
 
 const serviceBasePath = "/"
@@ -38,5 +40,10 @@ func main() {
 	http.HandleFunc(serviceBasePath, baseHandler)
 	film.SetupRoutes(serviceBasePath)
 
-	log.Fatal(http.ListenAndServe(":5300", nil))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "5300"
+	}
+
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
